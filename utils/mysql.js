@@ -8,12 +8,13 @@ function executeSql(pool, sql) {
         console.log(err);
         reject(err);
       }
-      console.log(sql);
+      console.log(`sql: ${sql}`);
       connection.query(sql, (error, results) => {
         if (error) {
           console.log(error);
           reject(error);
         }
+        console.log(`results: ${JSON.stringify(results)}`);
         resolve(results);
         connection.release();
       })
