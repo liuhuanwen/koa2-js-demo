@@ -1,0 +1,42 @@
+{
+  "cmdb": {
+    "connectionLimit": 10,
+    "host": "10.1.100.107",
+    "port": "32959",
+    "user": "bg_idcuser",
+    "password": "GK(B8@ks^*JH",
+    "database": "idc_cmdb"
+  },
+  "workOrder": {
+    "connectionLimit": 10,
+    "host": "10.1.100.107",
+    "port": "32959",
+    "user": "bg_idcuser",
+    "password": "GK(B8@ks^*JH",
+    "database": "idc_work_order"
+  },
+  "message": {
+    "connectionLimit": 10,
+    "host": "10.1.100.107",
+    "port": "32959",
+    "user": "bg_idcuser",
+    "password": "GK(B8@ks^*JH",
+    "database": "idc_message"
+  },
+  "userCenter": {
+    "connectionLimit": 10,
+    "host": "10.1.100.107",
+    "port": "32959",
+    "user": "bg_idcuser",
+    "password": "GK(B8@ks^*JH",
+    "database": "usercenter"
+  },
+  "passport": {
+    "connectionLimit": 10,
+    "host": "10.1.100.107",
+    "port": "32959",
+    "user": "bg_idcuser",
+    "password": "GK(B8@ks^*JH",
+    "database": "passport"
+  }
+}
