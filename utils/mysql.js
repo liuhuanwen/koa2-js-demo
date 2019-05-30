@@ -8,6 +8,7 @@ function executeSql(pool, sql) {
         console.log(err);
         reject(err);
       }
+      console.log(sql);
       connection.query(sql, (error, results) => {
         if (error) {
           console.log(error);

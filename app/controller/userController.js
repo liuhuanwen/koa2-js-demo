@@ -1,19 +1,13 @@
-exports.login = async function (ctx, next) {
-  try {
-    let result = await executeUserCenterSql('select * from city');
-    ctx.body = {code: 0, data: result};
-  } catch (e) {
-    ctx.body = {code: -1, message: e.message};
-  }
-  await next();
-};
+const userService = require('../service/userService');
 
-exports.email = async function (ctx, next) {
+exports.login = async function (ctx) {
   try {
-    let result = await executeSql('select * from email a join usercenter.employee b on a.address = b.email');
-    ctx.body = {code: 0, data: result};
+    const params = ctx.request.body;
+    if (!params.username) throw new Error('用户名不能为空');
+    if (!params.password) throw new Error('密码不能为空');
+    await userService.login(params.username, params.password);
+    ctx.body = {code: 0, data: {}};
   } catch (e) {
     ctx.body = {code: -1, message: e.message};
   }
-  await next();
 };
