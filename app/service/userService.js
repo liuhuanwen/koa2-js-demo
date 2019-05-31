@@ -11,7 +11,7 @@ exports.login = async function (ctx, loginTime) {
       loginName: ctx.request.body.username,
       password: encryptPassword
     }
-  })
+  });
   if (result === null) throw new Error('账号/密码不存在');
   const clientIp = utils.getClientIP(ctx.req);
   await insertLoginLog(clientIp, result.id, result.loginName, loginTime);
@@ -36,7 +36,7 @@ exports.changePassword = async function (ctx) {
       loginName: ctx.request.body.username,
       password: encryptPassword
     }
-  })
+  });
   if (result === null) throw new Error('账号/密码不存在');
   await Account.update({
     password: sha256(ctx.request.body.newPassword),

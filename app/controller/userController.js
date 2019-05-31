@@ -13,7 +13,8 @@ exports.login = async function (ctx) {
     await userService.login(ctx, loginTime);
     ctx.body = {
       code: 0,
-      data: {}
+      data: {},
+      message: '登录成功'
     };
   } catch (e) {
     ctx.body = {
@@ -49,7 +50,8 @@ exports.changePwd = async function (ctx) {
     await userService.changePassword(ctx);
     ctx.body = {
       code: 0,
-      data: {}
+      data: {},
+      message: '修改密码成功'
     };
   } catch (e) {
     ctx.body = {
@@ -57,4 +59,4 @@ exports.changePwd = async function (ctx) {
       message: e.message
     };
   }
-}
+};
