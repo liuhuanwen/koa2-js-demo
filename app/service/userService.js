@@ -29,6 +29,25 @@ async function insertLoginLog(clientIp, accountId, accountName, loginTime) {
   }).save();
 }
 
+exports.changePassword = async function (ctx) {
+  const encryptPassword = sha256(ctx.request.body.oldPassword);
+  const result = await Account.findOne({
+    where: {
+      loginName: ctx.request.body.username,
+      password: encryptPassword
+    }
+  })
+  if (result === null) throw new Error('账号/密码不存在');
+  await Account.update({
+    password: sha256(ctx.request.body.newPassword),
+    lastUpdatePasswordTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+  }, {
+    where: {
+      id: result.id
+    }
+  })
+};
+
 exports.getUserList = async function () {
   return await Account.findAll({
     attributes: ['id', 'loginName', 'lastLoginTime', 'lastUpdatePasswordTime']
