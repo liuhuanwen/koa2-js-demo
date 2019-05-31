@@ -13,3 +13,8 @@ exports.login = async function (ctx) {
     ctx.body = {code: -1, message: e.message};
   }
 };
+
+exports.userList = async function (ctx) {
+  const userList = await userService.getUserList();
+  ctx.body = {code: 0, data: {userList}};
+};

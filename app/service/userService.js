@@ -2,6 +2,7 @@ const sha256 = require('sha256');
 const executeUserCenterSql = require('../../utils/mysql').executeUserCenterSql;
 const utils = require('../../utils/util');
 const dayjs = require('dayjs');
+const Account = require('../model/Account');
 
 exports.login = async function (ctx, loginTime) {
   const encryptPassword = sha256(ctx.request.body.password);
@@ -15,3 +16,7 @@ async function insertLoginLog (clientIp, accountId, accountName, loginTime) {
   const createTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
   await executeUserCenterSql(`insert into login_log(accountId, accountName, loginIp, loginTime, createTime) values('${accountId}', '${accountName}', '${clientIp}', '${loginTime}', '${createTime}')`);
 }
+
+exports.getUserList = async function () {
+  return await Account.findAll();
+};
