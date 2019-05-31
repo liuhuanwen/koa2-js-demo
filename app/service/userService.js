@@ -1,20 +1,32 @@
 const sha256 = require('sha256');
-const executeUserCenterSql = require('../../utils/mysql').executeUserCenterSql;
 const utils = require('../../utils/util');
 const dayjs = require('dayjs');
 const Account = require('../model/Account');
+const LoginLog = require('../model/LoginLog');
 
 exports.login = async function (ctx, loginTime) {
   const encryptPassword = sha256(ctx.request.body.password);
-  const results = await executeUserCenterSql(`select * from account where loginName='${ctx.request.body.username}' and password='${encryptPassword}'`);
-  if (results.length <= 0) throw new Error('账号/密码不存在');
+  const result = await Account.findOne({
+    where: {
+      loginName: ctx.request.body.username,
+      password: encryptPassword
+    }
+  })
+  if (result === null) throw new Error('账号/密码不存在');
   const clientIp = utils.getClientIP(ctx.req);
-  await insertLoginLog(clientIp, results[0].id, results[0].loginName, loginTime);
+  await insertLoginLog(clientIp, result.id, result.loginName, loginTime);
 };
 
 async function insertLoginLog(clientIp, accountId, accountName, loginTime) {
   const createTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
-  await executeUserCenterSql(`insert into login_log(accountId, accountName, loginIp, loginTime, createTime) values('${accountId}', '${accountName}', '${clientIp}', '${loginTime}', '${createTime}')`);
+  await LoginLog.build({
+    loginIp: clientIp,
+    accountId,
+    accountName,
+    loginTime,
+    result: '登录成功',
+    createTime
+  }).save();
 }
 
 exports.getUserList = async function () {

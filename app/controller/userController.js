@@ -1,6 +1,9 @@
 const userService = require('../service/userService');
 const dayjs = require('dayjs');
 
+/**
+ * 登录接口
+ */
 exports.login = async function (ctx) {
   try {
     const loginTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
@@ -20,6 +23,9 @@ exports.login = async function (ctx) {
   }
 };
 
+/**
+ * 用户列表
+ */
 exports.userList = async function (ctx) {
   const userList = await userService.getUserList();
   ctx.body = {
