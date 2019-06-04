@@ -14,10 +14,10 @@ exports.login = async function (ctx, loginTime) {
   });
   if (result === null) throw new Error('账号/密码不存在');
   const clientIp = utils.getClientIP(ctx.req);
-  await insertLoginLog(clientIp, result.id, result.loginName, loginTime);
+  await addLoginLog(clientIp, result.id, result.loginName, loginTime);
 };
 
-async function insertLoginLog(clientIp, accountId, accountName, loginTime) {
+async function addLoginLog(clientIp, accountId, accountName, loginTime) {
   const createTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
   await LoginLog.build({
     loginIp: clientIp,
