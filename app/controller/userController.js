@@ -27,7 +27,7 @@ exports.login = async function (ctx) {
 /**
  * 用户列表
  */
-exports.userList = async function (ctx) {
+exports.list = async function (ctx) {
   const userList = await userService.getUserList();
   ctx.body = {
     code: 0,
